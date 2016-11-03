@@ -25,6 +25,14 @@ function deleteAll()
 }
 
 
+// xxx: function(){
+		
+// }
 
+// var xxx = function(){
+	
+// }
 
-
+// function xxx(){
+	
+// }

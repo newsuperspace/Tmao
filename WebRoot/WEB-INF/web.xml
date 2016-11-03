@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
-  <filter>
-		<filter-name>CharacterEncodingFilter</filter-name>
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>                          
 		<filter-class>cn.com.obj.tmao.filter.CharacterEncodingFilter</filter-class>
 	</filter>
 
@@ -10,7 +10,7 @@
 		<filter-name>AvoidResubmit</filter-name>
 		<filter-class>cn.com.obj.tmao.filter.AvoidResubmit</filter-class>
 	</filter>
-	
+
 	<filter>
 		<filter-name>GZipFilter</filter-name>
 		<filter-class>cn.com.obj.tmao.filter.GZipFilter</filter-class>
@@ -25,7 +25,7 @@
 		<filter-name>AvoidResubmit</filter-name>
 		<url-pattern>/servlet/*</url-pattern>
 	</filter-mapping>
-	
+
 	<filter-mapping>
 		<filter-name>GZipFilter</filter-name>
 		<url-pattern>*.html</url-pattern>
@@ -42,15 +42,24 @@
 		<filter-name>GZipFilter</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
-	
-	
+
+
 	<servlet>
 		<servlet-name>center</servlet-name>
 		<servlet-class>cn.com.obj.tmao.controller.center</servlet-class>
 	</servlet>
+  <servlet>
+    <servlet-name>AnyName</servlet-name>
+    <servlet-class>cn.com.obj.tmao.controller.AnyName</servlet-class>
+  </servlet>
 
+  
 	<servlet-mapping>
 		<servlet-name>center</servlet-name>
 		<url-pattern>/servlet/center</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AnyName</servlet-name>
+    <url-pattern>/servlet/AnyName</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -25,18 +25,18 @@ public class ServiceImplement implements ServiceInterface {
 
 	private DaoFactory   daoFactory = null;
 	{
-		daoFactory =  DaoFactory.getDAOFactory();
+		daoFactory =  DaoFactory.getDAOFactory();  
 	}
 	
-	
+	// 利用DAOFactory（service层与DAO层之间的解耦单元）来获取DAO实例
+	// 这样当前的service层就不与DAO之间相关了，这样就完成了解耦
 	private  DAOBookInterface   daobook =  daoFactory.createBookDAO();
 	private DAOCategoryInterface daocategory =  daoFactory.createCategoryDAO();
 	private  DAOCustomerInterface  daocustomer = daoFactory.createCustomerDAO();
 	private DAOOrdersInterface   daoorders  =  daoFactory.createOrdersDAO();
 	private DAOOrderItemInterface  daoorderitem  =  daoFactory.createOrderItemDAO();
 	
-	// =================================Book====================================
-	
+	// =============================关于Book的业务逻辑====================================
 	@Override
 	public void saveBook(formBook formbook) throws FormBeanFormatException {
 		
@@ -53,6 +53,13 @@ public class ServiceImplement implements ServiceInterface {
 		else
 		{
 			// 格式不正确，抛出异常
+			// 该异常将会被servlet层捕获
+			// 由于当前对象所操作的formBook这个Bean对象就是servlet从请求参数中封装的，换言之此时
+			// service层数据校验过程中的这个formBean与servlet是相同的引用
+			// 这样在service校验中写入到这个bean中的错误提示信息在servlet层也能得到，进而
+			// servlet会将这个formBean直接放入到request请求转发链域中，然后请求转发到原表单页面
+			// 该页面上的EL表达式就会自动从request中得到这个formBean然后将其中的数据恢复到表单中作为数据回显
+			// 并且把错误提示信息也显示出来。
 			throw new FormBeanFormatException("saveBook()过程中formBook中字段格式不符合要求");
 		}
 	}
@@ -126,7 +133,6 @@ public class ServiceImplement implements ServiceInterface {
 		return result;
 	}
 
-	
 	@Override
 	public void updateBook(formBook formbook) throws FormBeanFormatException {
 		if(checkFormBook(formbook))
@@ -174,8 +180,8 @@ public class ServiceImplement implements ServiceInterface {
 
 	
 	
-	//===============================Category========================================
-	// ================严格来说应该也像Book那样对从表单提交过来的formBook进行数据有效性检测，但这里省略了===================
+	//===============================关于Category的业务逻辑===============================
+	// =========严格来说应该也像Book那样对从表单提交过来的formBook进行数据有效性检测，但这里省略了===========
 	@Override
 	public void saveCategory(Category category) {
 		daocategory.save(category);
@@ -202,9 +208,8 @@ public class ServiceImplement implements ServiceInterface {
 	}
 
 	
-	
 	// =============================customer===============================
-	// ================严格来说应该也像Book那样对从表单提交过来的formBook进行数据有效性检测，但这里省略了===================
+	// ====严格来说应该也像Book那样对从表单提交过来的formBook进行数据有效性检测，但这里省略了=====
 	
 	@Override
 	public void saveCustomer(formCustomer formcustomer) throws FormBeanFormatException {
@@ -324,8 +329,8 @@ public class ServiceImplement implements ServiceInterface {
 	}
 	
 	
-	//=============================orders==============================
-	// ================严格来说应该也像Book那样对从表单提交过来的formBook进行数据有效性检测，但这里省略了===================
+	//==============================orders==============================
+	// ====严格来说应该也像Book那样对从表单提交过来的formBook进行数据有效性检测，但这里省略了===
 	
 	@Override
 	public void saveOrders(Orders orders) {
@@ -353,8 +358,8 @@ public class ServiceImplement implements ServiceInterface {
 	}
 	
 	
-	// =========================orderitem================================
-	// ================严格来说应该也像Book那样对从表单提交过来的formBook进行数据有效性检测，但这里省略了===================
+	// ===============================orderitem================================
+	// =====严格来说应该也像Book那样对从表单提交过来的formBook进行数据有效性检测，但这里省略了========
 	
 	@Override
 	public void saveOrderItem(OrderItem item) {

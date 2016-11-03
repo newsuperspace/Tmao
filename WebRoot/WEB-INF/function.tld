@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- 下面的schema约束与自定义标签用到的完全一样，所以说自定义标签的tld文档的写法和自定义EL函数的tld文档的写法差不多 -->
 <taglib xmlns="http://java.sun.com/xml/ns/j2ee"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
   version="2.0">
   
-  <tlib-version>1.0</tlib-version>
-  <short-name>myfun</short-name>
-  <uri>http://www.NB.com/myFunction</uri>
+  <tlib-version>1.0</tlib-version>																						<!-- 版本号，随意写不重要但不可获取 -->
+  <short-name>myfun</short-name>																					<!-- JSP页面通过EL表达式调用时的前缀缩写名 -->
+  <uri>http://www.NB.com/myFunction</uri> 																	<!-- 与自定义标签用于区分的uri -->
 
   <function>
-    <name>totalMoney</name>
-    <function-class>cn.com.obj.function.MyFunction</function-class>
-    <function-signature>java.lang.String totalMoney(java.util.List)</function-signature>
+    <name>totalMoney</name>                      																		<!-- 这里写在JSP页面调用EL函数名 -->
+    <function-class>cn.com.obj.function.MyFunction</function-class>    								<!-- 这里书写函数所属类的全名 -->
+    <function-signature>java.lang.String totalMoney(java.util.List)</function-signature>   	<!-- 这里书写函数签名 -->
   </function>
-  
   
   </taglib>

@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class OrderItem implements Serializable {
 
-	private String id;   // 订单项目在订单项目表中的id
+	private String id;   // 订单项目所属的订单项目表中的索引值（顺序）
 	private int num;   // 该类商品的数量
-	private float money;  // 商品的总价格
-	private String bookid;   // 商品是哪个图书
-	private String ordersnum; // 商品所属订单
+	private float money;  // 商品的总价格 
+	private String bookid;   // 商品是哪个图书（图书在数据库中的id）
+	private String ordersnum; // 商品所属订单的订单号码
 	
 	
 	@Override

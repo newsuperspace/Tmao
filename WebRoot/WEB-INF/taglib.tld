@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- Schema约束的标准写法，可以直接冲jstl中的任何一个tld文件中复制粘贴过来 -->
 <taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
-	<tlib-version>1.0</tlib-version>
-	<short-name>mytag</short-name>
-	<uri>http://www.NB.com/Tmao</uri>
 	
+	<!-- 自定义标签库的信息 -->
+	<tlib-version>1.0</tlib-version>    		<!-- 自定义标签库版本 -->
+	<short-name>mytag</short-name>		<!-- 标签库在JSP页面上的缩写前缀 -->
+	<uri>http://www.NB.com/Tmao</uri> <!-- 自定义标签库的统一资源标识符，可以随意写单一定要保证全世界独一无二，
+																		通常使用自己公司的带协议的域名 -->
+	
+	<!-- 下面才是 自定义标签的声明部分 -->
 	<tag>
-		<name>token</name>
-		<tag-class>cn.com.obj.tmao.taglib.MyTagLibrary</tag-class>
-		<body-content>empty</body-content>
+		<name>token</name>    															<!-- 标签名 -->
+		<tag-class>cn.com.obj.tmao.taglib.MyTagLibrary</tag-class>		<!-- 对应的实现了SimpleTag接口的实现类，
+																												JSP在重组为HTML页面时会自动调用该类的doTag方法 -->
+		<body-content>empty</body-content>										<!-- 自定义标签有标签体吗？ -->
 	</tag>
 	
 </taglib>

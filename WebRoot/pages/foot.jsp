@@ -12,25 +12,24 @@
 </script>
 <span style="margin-left: 40%;"> 
 	<form id="selecter"
-		action="${pageContext.request.contextPath}/servlet/center" >
-		<input   type="hidden"   name="op"   value="bookmanager">
+		action="${limit.path}">
 		<input   type="hidden"   name="currentPageNumber"   value="${limit.currentPageNumber}">
 		
 		<a
-			href="${pageContext.request.contextPath}/servlet/center?op=bookmanager&currentPageNumber=1&everyPageItemNumber=${limit.everyPageItemNumber}">首页</a>&nbsp;
+			href="${limit.path}&currentPageNumber=1&everyPageItemNumber=${limit.everyPageItemNumber}">首页</a>&nbsp;
 		<a
-			href="${pageContext.request.contextPath}/servlet/center?op=bookmanager&currentPageNumber=${limit.previousPageNumber}&everyPageItemNumber=${limit.everyPageItemNumber}">上一页</a>&nbsp;
+			href="${limit.path}&currentPageNumber=${limit.previousPageNumber}&everyPageItemNumber=${limit.everyPageItemNumber}">上一页</a>&nbsp;
 
 
 		<c:forEach begin="${limit.smallPageNumber}"
 			end="${limit.bigPageNumber}" step="1" var="num">
 			<a
-				href="${pageContext.request.contextPath}/servlet/center?op=bookmanager&currentPageNumber=${num}&everyPageItemNumber=${limit.everyPageItemNumber}">[${num}]</a>&nbsp;	
-	</c:forEach>
+				href="${limit.path}&currentPageNumber=${num}&everyPageItemNumber=${limit.everyPageItemNumber}">[${num}]</a>&nbsp;	
+		</c:forEach>
 		<a
-			href="${pageContext.request.contextPath}/servlet/center?op=bookmanager&currentPageNumber=${limit.nextPageNumber}&everyPageItemNumber=${limit.everyPageItemNumber}">下一页</a>&nbsp;
+			href="${limit.path}&currentPageNumber=${limit.nextPageNumber}&everyPageItemNumber=${limit.everyPageItemNumber}">下一页</a>&nbsp;
 		<a
-			href="${pageContext.request.contextPath}/servlet/center?op=bookmanager&currentPageNumber=${limit.totalPages}&everyPageItemNumber=${limit.everyPageItemNumber}">尾页</a>&nbsp;
+			href="${limit.path}&currentPageNumber=${limit.totalPages}&everyPageItemNumber=${limit.everyPageItemNumber}">尾页</a>&nbsp;
 
 		每页 <select onchange="change();" name="everyPageItemNumber">
 			<c:choose>

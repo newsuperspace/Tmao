@@ -19,14 +19,20 @@ public class DAOBookImplement implements DAOBookInterface {
 
 	private  QueryRunner  runner = null;
 	{
-		runner =  new QueryRunner();
+		// 之所以使用初始化代码块来完成runner的实例化工作
+		// 是因为这些DAO操作的实例是通过反射机制获取的
+		// 我不确定反射机制在创建类实例的时候是否会调用构造函数
+		// 因此为了万无一失这里使用了初始化代码块
+		runner =  new QueryRunner();      // 借助DBUtils的开源框架
 	}
 	
 	@Override
 	public void save(Book book) {
 		try {
-			runner.update(TransactionManager.getConnection(),
+			runner.update(TransactionManager.getConnection(),   // 通过事务管理器中维护的TLS获取只服务于当前线程的数据库连接对象
+					// 运用标准的sql语句+？号占位符 来构筑准备执行的sql语句主体，这一点与直接使用J2EE的preparedStatement是一样的
 					"INSERT INTO book (id,name,author,money,description,path,oldImageName,newImageName,categoryId) VALUES(?,?,?,?,?,?,?,?,?)", 
+					// 按照占位符的对应顺序依次填入对应的value
 					book.getId(),
 					book.getName(),
 					book.getAuthor(),
@@ -81,7 +87,9 @@ public class DAOBookImplement implements DAOBookInterface {
 	public Book getBookByID(String id) {
 		Book book  =  new Book();
 		try {
-			book  =  runner.query(TransactionManager.getConnection(), "SELECT * FROM book WHERE id = ?", new BeanHandler<Book>(Book.class), id);
+			book  =  runner.query(TransactionManager.getConnection(), "SELECT * FROM book WHERE id = ?", 
+					// 使用DBUtils提供的各种适配器
+					new BeanHandler<Book>(Book.class), id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException("DAOBookImplement->getBookByID()->获取书籍出现错误");
@@ -90,12 +98,18 @@ public class DAOBookImplement implements DAOBookInterface {
 	}
 
 
+	/**
+	 * 对大结果集的数据库查询结果，为了节约处理成本，可使用分页查询LIMIT关键字
+	 * currentPageIndex 所要查询的第一个数据在数据库索引位置
+	 * everyPageItemNumbers 要查询出多少个数据
+	 */
 	@Override
 	public List<Book> getBooksBylimit(int currentPageIndex,
 			int everyPageItemNumbers) {
 		List<Book>  list =  new ArrayList<Book>();
 		try {
-			list = runner.query(TransactionManager.getConnection(), "SELECT * FROM book LIMIT ?,?", new BeanListHandler<Book>(Book.class), currentPageIndex,everyPageItemNumbers);
+			list = runner.query(TransactionManager.getConnection(), "SELECT * FROM book LIMIT ?,?", 		
+					new BeanListHandler<Book>(Book.class), currentPageIndex,everyPageItemNumbers);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException("DAOBookImplement->getBooksBylimit()->获取书籍出现错误");

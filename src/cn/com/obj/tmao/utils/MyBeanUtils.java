@@ -55,13 +55,19 @@ public class MyBeanUtils {
 	 */
 	public  static  <T> void parameterMap2formBean(T bean, Map<String,String[]> map)
 	{
+		/*
+		 * 我们知道请求参数的键值对都是String类型的
+		 * 而JavaBean中的属性的类型各式各样，为了能够实现String到各种数据类型的顺畅转换
+		 * 需要利用ConvertUtils注册一下涉及到的类型转换器
+		 * 下面注册了两个类型转换器一个是有string转化为float类型的FloatConverter类型转换器
+		 * 以及 string转化为int型的IntergerConverter类型的转换器
+		 */
 		ConvertUtils.register(new FloatConverter(), Float.class);
 		ConvertUtils.register(new IntegerConverter(), Integer.class);
 		// formBook 中有一个字段money是float类型的，请求参数值都是String类型存在类型转换问题
 		
-		
 		try {
-			BeanUtils.populate(bean, map);
+			BeanUtils.populate(bean, map); 
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {

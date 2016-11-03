@@ -15,8 +15,10 @@ public class propertiesUtils {
 	{
 			Properties  config  =  new Properties();
 		
+			// 通过当前类获取class对象，然后获取类加载器，然后获取资源流加载器加载位于 classpath根目录下的 配置文件（*.properties）为输入流
 			InputStream is = propertiesUtils.class.getClassLoader().getResourceAsStream("config/03dbcpconfig.properties");
 			try {
+				// 将配置文件的输入流载入到Properties对象中，就可以通过操作这个Properties对象用配置文件中的键名来获取配置值了。
 				config.load(is);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -60,7 +62,6 @@ public class propertiesUtils {
 		}
 		return  config;
 	}
-	
 	
 	/**
 	 * 获取各种编码配置的配置信息

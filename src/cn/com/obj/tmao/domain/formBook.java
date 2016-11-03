@@ -17,6 +17,8 @@ public class formBook implements Serializable {
 	private String newImageName;
 	private String categoryId;
 	
+	// 用来存放与 属性相关的错误或提示信息，用于显示到JSP页面上提示用户
+	// 键名与上方属性名相同，值就是错误提示信息
 	private  Map<String,String>  message = new HashMap<String,String>();
 
 	public String getId() {

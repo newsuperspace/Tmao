@@ -24,6 +24,9 @@ public class testDBCP {
 			ds   = BasicDataSourceFactory.createDataSource(propertiesUtils.getDBCPConfig());
 			Connection connection = ds.getConnection();
 			
+			/*
+			 * 基础JDBC操作
+			 */
 			PreparedStatement PS = connection.prepareStatement("INSERT INTO category VALUES(?,?,?)");
 			PS.setString(1, UUID.randomUUID().toString());
 			PS.setString(2, "计算机科学");
